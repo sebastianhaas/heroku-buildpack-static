@@ -89,14 +89,6 @@ http {
     return 404;
   }
 
-  # fallback proxy named match
-  <% proxies.each do |location, hash| %>
-    location @<%= location %> {
-      rewrite ^<%= location %>(.*)$ <%= hash['path'] %>/$1 break;
-      proxy_pass <%= hash['host'] %>;
-    }
-  <% end %>
-
   # fallback redirects named match
   <% redirects.each do |path, hash| %>
     location @<%= path %> {
